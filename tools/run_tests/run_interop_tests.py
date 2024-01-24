@@ -690,6 +690,29 @@ class PythonAsyncIOLanguage:
     def __str__(self):
         return "pythonasyncio"
 
+class GrapesyLanguage:
+    def __init__(self):
+        self.client_cwd = None
+        self.server_cwd = None
+        self.safename = str(self)
+
+    def client_cmd(self, args):
+        return (["/root/.cabal/bin/grapesy-interop", "--client"] + args)
+
+    def server_cmd(self, args):
+        return (["/root/.cabal/bin/grapesy-interop", "--server"] + args)
+
+    def global_env(self):
+        return {}
+
+    def unimplemented_test_cases(self):
+        return _ORCA_TEST_CASES
+
+    def unimplemented_test_cases_server(self):
+        return _ORCA_TEST_CASES
+
+    def __str__(self):
+        return "grapesy"
 
 _LANGUAGES = {
     "c++": CXXLanguage(),
@@ -705,6 +728,7 @@ _LANGUAGES = {
     "ruby": RubyLanguage(),
     "python": PythonLanguage(),
     "pythonasyncio": PythonAsyncIOLanguage(),
+    "grapesy": GrapesyLanguage(),
 }
 
 # languages supported as cloud_to_cloud servers
@@ -719,6 +743,7 @@ _SERVERS = [
     "dart",
     "pythonasyncio",
     "php7",
+    "grapesy",
 ]
 
 _TEST_CASES = [
